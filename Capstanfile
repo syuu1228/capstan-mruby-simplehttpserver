@@ -18,7 +18,7 @@ cmdline: /tools/mruby.so /server.rb
 # The command to use to build the application.  In this example, we just use
 # make.
 #
-build: make
+build: 
 
 #
 # List of files that are included in the generated image.
