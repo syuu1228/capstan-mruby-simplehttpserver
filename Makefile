@@ -3,22 +3,15 @@
 # This work is open source software, licensed under the terms of the
 # BSD license as described in the LICENSE file in the top-level directory.
 
-CXXFLAGS  = -g -Wall -std=c++11 -fPIC $(INCLUDES)
-
-TARGET = hello
-
-OBJ_FILES = hello.o
+TARGET = mruby
 
 quiet = $(if $V, $1, @echo " $2"; $1)
 very-quiet = $(if $V, $1, @$1)
 
-all: $(TARGET).so
+all: mruby.so mirb.so
 
-%.o: %.cc
-	$(call quiet, $(CXX) $(CXXFLAGS) -c -o $@ $<, CXX $@)
-
-$(TARGET).so: $(OBJ_FILES)
-	$(call quiet, $(CXX) $(CXXFLAGS) -shared -o $(TARGET).so $^, LINK $@)
+mruby.so mirb.so:
+	./GET
 
 clean:
-	$(call quiet, rm -f $(TARGET).so $(OBJ_FILES), CLEAN)
+	$(call quiet, rm -rf upstream *.so, CLEAN)
