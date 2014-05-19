@@ -12,7 +12,7 @@ base: cloudius/osv-base
 #
 # The command line passed to OSv to start up the application.
 #
-cmdline: /tools/mruby.so -e EShell.run
+cmdline: /tools/mruby.so /server.rb
 
 #
 # The command to use to build the application.  In this example, we just use
@@ -25,4 +25,4 @@ build: make
 #
 files:
   /tools/mruby.so: mruby.so
-  /tools/mirb.so: mirb.so
+  /server.rb: server.rb

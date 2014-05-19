@@ -83,27 +83,6 @@ MRuby::Build.new do |conf|
 #  conf.gem :git => 'https://github.com/iij/mruby-syslog.git'
   conf.gem :git => 'https://github.com/iij/mruby-tempfile.git'
 
-  conf.gem :git => 'https://github.com/suzukaze/mruby-msgpack.git'
-
-  conf.gem :git => 'https://github.com/mattn/mruby-http.git'
-  conf.gem :git => 'https://github.com/mattn/mruby-json.git'
-  conf.gem :git => 'https://github.com/mattn/mruby-msgpack-rpc.git'
-
-# Requires libyaml, disable for now
-#  conf.gem :git => 'https://github.com/AndrewBelt/mruby-yaml.git'
-
-  conf.gem :git => 'https://github.com/syuu1228/osv-mruby-base64.git'
-  conf.gem :git => 'https://github.com/syuu1228/osv-mruby-md5.git'
-
-  conf.gem :git => 'https://github.com/matsumoto-r/mruby-sleep.git'
-
-  conf.gem :git => 'https://github.com/syuu1228/mruby-eshell.git'
-
-  # Copyleft gems
-  conf.gem :git => 'https://github.com/syuu1228/osv-mruby-polarssl.git'
-  conf.gem :git => 'https://github.com/syuu1228/osv-mruby-sha1.git'
-  conf.gem :git => 'https://github.com/matsumoto-r/mruby-vedis.git'
-  conf.gem :git => 'https://github.com/matsumoto-r/mruby-simplehttp.git'
-  conf.gem :git => 'https://github.com/matsumoto-r/mruby-httprequest.git'
-  conf.gem :git => 'https://github.com/iij/mruby-aws-s3.git'
+  conf.gem :github => 'mattn/mruby-http'
+  conf.gem :github => 'matsumoto-r/mruby-simplehttpserver'
 end

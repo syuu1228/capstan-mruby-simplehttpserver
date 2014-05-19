@@ -8,9 +8,9 @@ TARGET = mruby
 quiet = $(if $V, $1, @echo " $2"; $1)
 very-quiet = $(if $V, $1, @$1)
 
-all: mruby.so mirb.so
+all: mruby.so
 
-mruby.so mirb.so:
+mruby.so:
 	./GET
 
 clean:
