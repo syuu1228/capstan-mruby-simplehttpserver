@@ -6,8 +6,6 @@ server = SimpleHttpServer.new({
 
   :server_ip => "0.0.0.0",
   :port  =>  80,
-
-  # not implemented 
   :document_root => "./",
 })
 
@@ -16,16 +14,7 @@ server = SimpleHttpServer.new({
 # HTTP Initialize Configuration Per Request
 #
 
-server.http do 
-  server.set_response_headers ["Server: my-mruby-simplehttpserver"]
-  server.set_response_headers ["Date: #{server.http_date}"]
-end
-
-# 
-# Location Configration
-# 
-
-# You can use request parameters in location
+# You can use request parameters at http or location configration
 #   r.method
 #   r.schema
 #   r.host
@@ -34,6 +23,17 @@ end
 #   r.query
 #   r.headers
 #   r.body
+
+server.http do |r|
+  server.set_response_headers({
+    "Server" => "my-mruby-simplehttpserver",
+    "Date" => server.http_date,
+  })
+end
+
+# 
+# Location Configration
+# 
 
 # /mruby location config
 server.location "/mruby" do |r|
@@ -52,8 +52,7 @@ server.location "/mruby/ruby" do |r|
 end
 
 server.location "/html" do |r|
-  server.set_response_headers ["Content-Type: text/html; charset=utf-8"]
-  # or server.response_headers << ["Content-Type: text/html; charset=utf-8"]
+  server.set_response_headers "Content-type" => "text/html; charset=utf-8"
   server.response_body = "<H1>Hello mruby World.</H1>\n"
   server.create_response
 end
@@ -61,7 +60,21 @@ end
 # Custom error response message
 server.location "/notfound" do |r|
   server.response_body = "Not Found on this server: #{r.path}\n"
-  server.create_response "HTTP/1.0 404 Not Found"
+  server.create_response 404
+end
+
+# Static html file contents
+server.location "/static/" do |r|
+  if r.method == 'GET' && r.path.is_dir? || r.path.is_html?
+    filename = server.config[:document_root] + r.path
+    filename += r.path.is_dir? ? 'index.html' : ''
+
+    server.set_response_headers "Content-Type" => "text/html; charset=utf-8"
+    server.file_response r, filename
+  else
+    server.response_body = "Service Unavailable\n"
+    server.create_response 503
+  end
 end
 
 server.run
